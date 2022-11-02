@@ -1,14 +1,12 @@
-using System;
-using System.Text;
-using System.Windows.Forms;
-
-namespace libVT100
+﻿namespace libvt100
 {
-    public delegate void DecoderOutputDelegate ( IDecoder _decoder, byte[] _output );
+    using System.Text;
 
-    public interface IDecoder : IDisposable    
+    public delegate void DecoderOutputDelegate(IDecoder _decoder, byte[] _output);
+
+    public interface IDecoder : IDisposable
     {
-        Encoding Encoding { get; set; }
+        Encoding? Encoding { get; set; }
 
         /// <summary>
         /// Tell decoder to process the given data.
@@ -18,11 +16,11 @@ namespace libVT100
         /// best to survive any invalid data and should still be able
         /// to process data after an exception is thrown.
         /// </summary>
-        void Input ( byte[] _data );
-        
+        void Input(byte[] _data);
+
         event DecoderOutputDelegate Output;
 
-       bool KeyPressed( Keys _modifiers, Keys _key );
-       void CharacterTyped( char _character );
+        bool KeyPressed(ConsoleModifiers _modifiers, ConsoleKey _key);
+        void CharacterTyped(char _character);
     }
 }
